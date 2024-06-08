@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>myProject - Personal Blog & CV</title>
+    <title>Blog - myProject</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
 </head>
 <body>
     <header>
@@ -24,10 +22,20 @@
         </div>
     </header>
     <main>
-        <section id="about">
+        <section id="blog">
             <div class="container">
-                <h2>Welcome to myProject</h2>
-                <p>This is a personal website showcasing my CV and blog articles on technical and non-technical topics.</p>
+                <h2>Blog</h2>
+                <article>
+                    <h3>Blog Post Title 1</h3>
+                    <p>Summary of blog post 1...</p>
+                    <a href="path/to/full-post-1">Read more</a>
+                </article>
+                <article>
+                    <h3>Blog Post Title 2</h3>
+                    <p>Summary of blog post 2...</p>
+                    <a href="path/to/full-post-2">Read more</a>
+                </article>
+                <!-- Add more blog posts as needed -->
             </div>
         </section>
     </main>

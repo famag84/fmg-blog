@@ -12,6 +12,24 @@ def get_db_connection():
 def index():
     return render_template('index.html')
 
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/cv')
+def cv():
+    return render_template('cv.html')
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
 @app.route('/get_curve_names', methods=['GET'])
 def get_curve_names():
     conn = get_db_connection()
