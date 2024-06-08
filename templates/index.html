@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facundo M. Gilles - Personal Blog & CV</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}" defer></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Facundo M. Gilles</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#cv">CV</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#personal">Personal</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <!-- Other sections here... -->
+        <section id="personal">
+            <div class="container">
+                <h2>Personal</h2>
+                <form id="password-form">
+                    <label for="password">Enter Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="button" onclick="checkPassword()">Submit</button>
+                </form>
+                <div id="personal-content" style="display: none;">
+                    <form id="curve-form">
+                        <label for="curve-name">Select Curve:</label>
+                        <select id="curve-name" name="curve_name"></select>
+                        <button type="button" onclick="fetchCurve()">Show Curve</button>
+                    </form>
+                    <canvas id="curve-chart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Facundo M. Gilles. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
