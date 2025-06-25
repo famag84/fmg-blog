@@ -8,7 +8,7 @@ output:
     slide_level: 2
     incremental: true
     keep_tex: true
-	sidebar: true
+    sidebar: true
 header-includes:
   - \usepackage{amsmath}
   - \usepackage{graphicx}
