@@ -1,8 +1,7 @@
 # Título Principal
 
 Contenido de la diapositiva
-**Esto es otra prueba**
-**Esto es otra prueba 2**
+
 *Author: Facundo M. Gilles*
 
 ---
