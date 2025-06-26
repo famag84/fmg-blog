@@ -1,6 +1,6 @@
 # Título Principal
 
-author: Facundo Gilles
+author: Facundo M. Gilles
 Contenido de la diapositiva
 
 ---
