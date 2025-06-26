@@ -15,8 +15,8 @@ jobs:
       # - name: Install Git
       #   run: apt-get update && apt-get install -y git
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      # - name: Checkout repository
+      #   uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0  # Required to detect changed files
       
@@ -43,22 +43,23 @@ jobs:
       #     tlmgr update --self
       #     tlmgr install beamer
       #     # tlmgr navigation
-      
-      - name: Get list of modified markdown files
-        id: files
-        run: |
-          # List markdown files changed in the commit or pull request
-          files=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep '\.md$' || true)
-          echo "changed_md_files=$files" >> $GITHUB_OUTPUT
-          echo "Found the following markdown files to convert:"
-          echo "$files"
+      - name: Get changed files via GitHub API
+        id: changed-files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: space-delimited  # Lista de archivos separados por espacios
 
-      - name: Convert markdown files to PDF
-        if: steps.files.outputs.changed_md_files != ''
+      - name: Filter Markdown files
+        id: filter-md
         run: |
-          # Split the list into an array
-          IFS=$'\n' read -r -d '' -a md_files <<< "${{ steps.files.outputs.changed_md_files }}" || true
-          for md in "${md_files[@]}"; do
+          # Filtra solo archivos .md
+          md_files=$(echo "${{ steps.changed-files.outputs.all }}" | tr ' ' '\n' | grep '\.md$' || true)
+          echo "changed_md_files=$md_files" >> $GITHUB_OUTPUT
+          echo "Markdown files changed: $md_files"
+
+      - name: Process files in container
+        run: |
+          for file in ${{ steps.filter-md.outputs.changed_md_files }}; do
               echo "Processing file: ${md}"
               # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
               if grep -qi 'beamer' "${md}"; then
@@ -69,6 +70,32 @@ jobs:
                   pandoc "${md}" -o "${md%.*}.pdf"
               fi
           done
+
+      # - name: Get list of modified markdown files
+      #   id: files
+      #   run: |
+      #     # List markdown files changed in the commit or pull request
+      #     files=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep '\.md$' || true)
+      #     echo "changed_md_files=$files" >> $GITHUB_OUTPUT
+      #     echo "Found the following markdown files to convert:"
+      #     echo "$files"
+
+      # - name: Convert markdown files to PDF
+      #   if: steps.files.outputs.changed_md_files != ''
+      #   run: |
+      #     # Split the list into an array
+      #     IFS=$'\n' read -r -d '' -a md_files <<< "${{ steps.files.outputs.changed_md_files }}" || true
+      #     for md in "${md_files[@]}"; do
+      #         echo "Processing file: ${md}"
+      #         # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
+      #         if grep -qi 'beamer' "${md}"; then
+      #             echo "Detected Beamer presentation in ${md}. Converting using Beamer template."
+      #             pandoc "${md}" -t beamer -o "${md%.*}.pdf"
+      #         else
+      #             echo "Converting ${md} as a standard markdown document."
+      #             pandoc "${md}" -o "${md%.*}.pdf"
+      #         fi
+      #     done
       
       # - name: Convert to PDF
       #   run: |
