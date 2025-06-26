@@ -1,26 +1,144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Presentación</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <title>Modern Presentation</title>
+
+    <!-- Reveal.js Core -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    
+    <!-- Modern Theme (Solarized) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/solarized.min.css" id="theme">
+    
+    <!-- Custom Theme Toggle (Dark/Light) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --r-main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --r-heading-font: 'Roboto', 'Arial Narrow', sans-serif;
+            --r-link-color: #2a76dd;
+            --r-link-color-hover: #5a9cf8;
+        }
+        
+        /* Custom slide layouts */
+        .slide-title {
+            background: linear-gradient(90deg, #2a76dd 0%, #6a11cb 100%);
+            color: white !important;
+            padding: 20px !important;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Animated elements */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fragment.fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        /* Speaker Notes */
+        .speaker-notes {
+            font-size: 18px !important;
+            background: rgba(0,0,0,0.8) !important;
+        }
+    </style>
 </head>
 <body>
     <div class="reveal">
         <div class="slides">
-            <section data-markdown="ejemplo1.md" data-separator="^\n---\n$" data-separator-vertical="^\n--\n$"></section>
+            <!-- Title Slide -->
+            <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
+                <textarea data-template>
+                    # Modern Presentation
+                    ### With Reveal.js
+                    <small>Created by [Your Name](https://github.com/yourusername)</small>
+                    
+                    <div class="fragment fade-in">
+                        <img src="https://revealjs.com/logo.png" width="150" style="border: none; box-shadow: none;">
+                    </div>
+                    
+                    Notes:
+                    - Welcome everyone
+                    - This is a speaker note (press 'S' to open)
+                </textarea>
+            </section>
+            
+            <!-- Content Slide -->
+            <section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Key Features
+                        - **Vertical Slides** (press ↓)
+                        - **Markdown Support**
+                        - **LaTeX Math**: $E=mc^2$
+                        - **Code Highlighting**
+                        - **Speaker Notes** (`S` key)
+                    </textarea>
+                </section>
+                
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Vertical Slide Example
+                        - Nested content
+                        - Press ↓ or ↑ to navigate
+                        -- 
+                        ### Sub-slide
+                        With [links](https://revealjs.com) and **formatting**
+                    </textarea>
+                </section>
+            </section>
+            
+            <!-- Code Slide -->
+            <section>
+                <h2 class="slide-title">Code Highlighting</h2>
+                <pre><code class="hljs javascript" data-trim data-line-numbers="|1-2|4|6-8">
+                // Sample JavaScript
+                function greet(name) {
+                    return `Hello ${name}!`;
+                }
+                
+                // Arrow function
+                const sum = (a, b) => {
+                    return a + b;
+                };
+                </code></pre>
+            </section>
+            
+            <!-- Math Slide -->
+            <section data-markdown>
+                <textarea data-template>
+                    ## LaTeX Math Support
+                    The quadratic formula:
+                    
+                    $$
+                    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+                    $$
+                    
+                    Inline math: $\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}$
+                </textarea>
+            </section>
+            
+            <!-- Final Slide -->
+            <section data-background="#2a76dd" data-background-transition="zoom">
+                <h1 style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">Thank You!</h1>
+                <p>
+                    <a href="https://github.com/yourusername" style="color: white;">
+                        <i class="fab fa-github"></i> yourusername
+                    </a>
+                </p>
+            </section>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/markdown/markdown.min.js"></script>
-    <script>
-        Reveal.initialize({
-            plugins: [ RevealMarkdown ],
-            hash: true,
-            transition: 'slide'
-        });
-    </script>
-</body>
-</html>
+
+    <!-- Reveal.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>

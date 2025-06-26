@@ -16,6 +16,8 @@ Garantizar que el modelo se ejecute en tu propia infraestructura, sin enviar inp
   - Descargar: Mistral 7B, LLaMA 3, DeepSeek, Falcon
   - Conversión opcional a GGUF, AWQ, Exllama
 
+---
+
 # Fase 2: Vector Store + Recuperación Local
 
 ## Objetivo
@@ -34,6 +36,8 @@ Mantener todo el pipeline RAG bajo control propio.
     - Recupera contexto relevante
     - Arma prompt y lo pasa al modelo
 
+---
+
 # Fase 3: Servir el Modelo por Endpoint Privado
 
 ## Objetivo
@@ -50,6 +54,8 @@ Exponer un endpoint de inferencia sin salir de la red propia.
   - Dockerizar cada componente
   - Orquestar con `docker-compose` o Kubernetes
 
+---
+
 # Fase 4: Auditoría y Seguridad
 
 ## Objetivo
@@ -62,6 +68,8 @@ Garantizar que ningún dato salga del entorno controlado.
   - Registro de accesos e inferencias
 - **Validación del aislamiento**
   - Herramientas: `tcpdump`, `nethogs`, `iftop`
+
+---
 
 # Resultado
 
