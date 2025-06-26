@@ -12,6 +12,10 @@ jobs:
       image: pandoc/latex:latest  # Official Pandoc+LaTeX image
       
     steps:
+    
+      - name: Install Git
+        run: sudo apt-get update && sudo apt-get install -y git
+        
       - name: Checkout repository
         uses: actions/checkout@v4
         # with:
@@ -30,11 +34,11 @@ jobs:
       #     files: '**.md'
       #     since_last_remote_commit: 'true'
           
-      - name: Install missing LaTeX packages (if needed)
-        run: |
-          tlmgr update --self
-          tlmgr install beamer
-          # tlmgr navigation
+      # - name: Install missing LaTeX packages (if needed)
+      #   run: |
+      #     tlmgr update --self
+      #     tlmgr install beamer
+      #     # tlmgr navigation
       
       - name: Get list of modified markdown files
         id: files
