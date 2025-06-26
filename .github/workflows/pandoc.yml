@@ -12,15 +12,17 @@ jobs:
       image: pandoc/latex:latest  # Official Pandoc+LaTeX image
       
     steps:
-
-      - name: Install Git
-        run: apt-get update && apt-get install -y git
         
       - name: Checkout repository
         uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0  # Required to detect changed files
       
+      - name: Install Git
+        run: |
+          sudo apt-get update 
+          sudo apt-get install -y git
+
       # - name: Setup Pandoc and LaTeX
       #   run: |
       #     sudo apt-get update
