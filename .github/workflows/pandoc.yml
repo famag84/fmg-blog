@@ -32,8 +32,8 @@ jobs:
           
       - name: Install missing LaTeX packages (if needed)
         run: |
-          sudo tlmgr update --self
-          sudo tlmgr install beamer navigation
+          tlmgr update --self
+          tlmgr install beamer navigation
           
       - name: Convert to PDF
         run: |
