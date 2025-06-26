@@ -1,140 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Presentation</title>
-
-    <!-- Reveal.js Core -->
+    <title>Presentación Moderna</title>
+    
+    <!-- Reveal.js Core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     
-    <!-- Modern Theme (Solarized) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/solarized.min.css" id="theme">
+    <!-- Modern Theme (Moon vs Solarized) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/moon.min.css" id="theme">
     
-    <!-- Custom Theme Toggle (Dark/Light) -->
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Code Highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-    
-    <!-- Custom CSS -->
+    <!-- Custom Styling -->
     <style>
         :root {
-            --r-main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --r-heading-font: 'Roboto', 'Arial Narrow', sans-serif;
-            --r-link-color: #2a76dd;
-            --r-link-color-hover: #5a9cf8;
+            --r-main-font: 'Segoe UI', system-ui, sans-serif;
+            --r-heading-font: 'Montserrat', sans-serif;
+            --r-link-color: #4fc3f7;
+            --r-link-color-hover: #b3e5fc;
         }
         
-        /* Custom slide layouts */
-        .slide-title {
-            background: linear-gradient(90deg, #2a76dd 0%, #6a11cb 100%);
+        /* Gradient Title Slides */
+        .title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             color: white !important;
-            padding: 20px !important;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 16px;
+            padding: 40px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
-        /* Animated elements */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Animated Fragments */
+        .fragment.fade-in-then-out {
+            opacity: 0;
+            animation: fadeInOut 8s ease forwards;
         }
         
-        .fragment.fade-in {
-            animation: fadeIn 0.8s ease forwards;
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(20px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
         }
         
-        /* Speaker Notes */
-        .speaker-notes {
-            font-size: 18px !important;
-            background: rgba(0,0,0,0.8) !important;
+        /* Custom Progress Bar */
+        .reveal .progress {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .reveal .progress span {
+            background: linear-gradient(90deg, #4fc3f7, #a162e8);
+        }
+        
+        /* Dark/Light Toggle */
+        #themeToggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        #themeToggle:hover {
+            background: rgba(0,0,0,0.8);
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggle" title="Cambiar tema">
+        <i class="fas fa-moon"></i>
+    </button>
+    
     <div class="reveal">
         <div class="slides">
-            <!-- Title Slide -->
-            <section data-markdown data-separator="^\n---\n$" data-separator-vertical="^\n--\n$">
-                <textarea data-template>
-                    # Modern Presentation
-                    ### With Reveal.js
-                    <small>Created by [Your Name](https://github.com/yourusername)</small>
-                    
-                    <div class="fragment fade-in">
-                        <img src="https://revealjs.com/logo.png" width="150" style="border: none; box-shadow: none;">
-                    </div>
-                    
-                    Notes:
-                    - Welcome everyone
-                    - This is a speaker note (press 'S' to open)
-                </textarea>
+            <!-- Load your existing Markdown file -->
+            <section data-markdown="ejemplo1a.md"
+                     data-separator="^\n---\n$"
+                     data-separator-vertical="^\n--\n$"
+                     data-separator-notes="^Notas:">
             </section>
             
-            <!-- Content Slide -->
-            <section>
-                <section data-markdown>
-                    <textarea data-template>
-                        ## Key Features
-                        - **Vertical Slides** (press ↓)
-                        - **Markdown Support**
-                        - **LaTeX Math**: $E=mc^2$
-                        - **Code Highlighting**
-                        - **Speaker Notes** (`S` key)
-                    </textarea>
-                </section>
-                
-                <section data-markdown>
-                    <textarea data-template>
-                        ## Vertical Slide Example
-                        - Nested content
-                        - Press ↓ or ↑ to navigate
-                        -- 
-                        ### Sub-slide
-                        With [links](https://revealjs.com) and **formatting**
-                    </textarea>
-                </section>
-            </section>
-            
-            <!-- Code Slide -->
-            <section>
-                <h2 class="slide-title">Code Highlighting</h2>
-                <pre><code class="hljs javascript" data-trim data-line-numbers="|1-2|4|6-8">
-                // Sample JavaScript
-                function greet(name) {
-                    return `Hello ${name}!`;
-                }
-                
-                // Arrow function
-                const sum = (a, b) => {
-                    return a + b;
-                };
-                </code></pre>
-            </section>
-            
-            <!-- Math Slide -->
-            <section data-markdown>
-                <textarea data-template>
-                    ## LaTeX Math Support
-                    The quadratic formula:
-                    
-                    $$
-                    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-                    $$
-                    
-                    Inline math: $\nabla \cdot \mathbf{E} = \frac{\rho}{\epsilon_0}$
-                </textarea>
-            </section>
-            
-            <!-- Final Slide -->
-            <section data-background="#2a76dd" data-background-transition="zoom">
-                <h1 style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.3);">Thank You!</h1>
-                <p>
-                    <a href="https://github.com/yourusername" style="color: white;">
-                        <i class="fab fa-github"></i> yourusername
-                    </a>
-                </p>
+            <!-- Optional: Add custom slides after your Markdown content -->
+            <section data-background-gradient="linear-gradient(to bottom, #283b95, #17b2c3)">
+                <h2 class="title-slide">¡Gracias!</h2>
+                <div class="fragment fade-in-then-out">
+                    <p style="font-size: 1.5rem;">
+                        <i class="fas fa-envelope"></i> contacto@example.com<br>
+                        <i class="fab fa-github"></i> github.com/tuusuario
+                    </p>
+                </div>
+                <div class="fragment">
+                    <small style="opacity: 0.7;">Presiona <kbd>ESC</kbd> para vista general</small>
+                </div>
             </section>
         </div>
     </div>
@@ -142,3 +115,63 @@
     <!-- Reveal.js Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/notes/notes.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/math/math.min.js"></script>
+    
+    <!-- Custom Theme Toggle -->
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const theme = document.getElementById('theme');
+            const icon = document.querySelector('#themeToggle i');
+            
+            if (theme.href.includes('moon')) {
+                theme.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/solarized.min.css';
+                icon.className = 'fas fa-sun';
+                icon.style.color = '#d33682';
+            } else {
+                theme.href = 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/moon.min.css';
+                icon.className = 'fas fa-moon';
+                icon.style.color = 'white';
+            }
+        });
+    </script>
+    
+    <!-- Initialize Reveal.js -->
+    <script>
+        Reveal.initialize({
+            plugins: [ RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealNotes ],
+            
+            // Presentation settings
+            hash: true,
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            slideNumber: 'c/t',
+            pdfSeparateFragments: false,
+            
+            // Markdown config (for your ejemplo1.md)
+            markdown: {
+                smartypants: true,
+                separator: '^\n---\n$',
+                verticalSeparator: '^\n--\n$',
+                notesSeparator: '^Notas:'
+            },
+            
+            // Math config
+            math: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+                config: 'TeX-AMS_HTML-full'
+            }
+        });
+        
+        // Auto-animate elements with class "auto-animate"
+        Reveal.on('slidechanged', event => {
+            document.querySelectorAll('.auto-animate').forEach(el => {
+                el.style.animation = 'none';
+                void el.offsetWidth; // Trigger reflow
+                el.style.animation = '';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+name: Convert Markdown to PDF
+on:
+  push:
+    paths:
+      - '**.md'  # Trigger only when .md files change
+      
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    container:
+      image: pandoc/latex:latest  # Official Pandoc+LaTeX image
+      
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to detect changed files
+          
+      - name: Find modified Markdown files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: |
+            **.md
+          
+      - name: Install missing LaTeX packages (if needed)
+        run: |
+          tlmgr update --self
+          tlmgr install beamer navigation
+          
+      - name: Convert to PDF
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ -f "$file" ]]; then
+              output="${file%.md}.pdf"
+              pandoc "$file" -o "$output" \
+                --template=eisvogel \
+                --listings \
+                -V lang=es \
+                -V geometry:margin=1.5cm \
+                --pdf-engine=xelatex
+            fi
+          done
+          
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: generated-pdfs
+          path: |
+            **.pdf
