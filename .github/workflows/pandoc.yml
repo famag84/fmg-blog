@@ -23,12 +23,12 @@ jobs:
           sudo apt-get install -y pandoc texlive-full
           sudo tlmgr install eisvogel beamer-metropolis
           
-      - name: Find modified Markdown files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
-        with:
-          files: '**.md'
-          since_last_remote_commit: 'true'
+      # - name: Find modified Markdown files
+      #   id: changed-files
+      #   uses: tj-actions/changed-files@v42
+      #   with:
+      #     files: '**.md'
+      #     since_last_remote_commit: 'true'
           
       - name: Install missing LaTeX packages (if needed)
         run: |
