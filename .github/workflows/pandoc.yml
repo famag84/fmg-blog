@@ -35,30 +35,56 @@ jobs:
           tlmgr update --self
           tlmgr install beamer
           # tlmgr navigation
-          
-      - name: Convert to PDF
+      
+      - name: Get list of modified markdown files
+        id: files
         run: |
-          for file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$'); do
-            if [[ -f "$file" ]]; then
-              echo "Processing $file..."
-              output="${file%.md}.pdf"
+          # List markdown files changed in the commit or pull request
+          files=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep '\.md$' || true)
+          echo "changed_md_files=$files" >> $GITHUB_OUTPUT
+          echo "Found the following markdown files to convert:"
+          echo "$files"
 
-              # Check if file contains presentation markers
-              if grep -q '^theme:' "$file" || grep -q '^class: beamer' "$file"; then
-                pandoc "$file" -o "$output" \
-                  -t beamer \
-                  -V theme:metropolis \
-                  --pdf-engine=xelatex
-              
+      - name: Convert markdown files to PDF
+        if: steps.files.outputs.changed_md_files != ''
+        run: |
+          # Split the list into an array
+          IFS=$'\n' read -r -d '' -a md_files <<< "${{ steps.files.outputs.changed_md_files }}" || true
+          for md in "${md_files[@]}"; do
+              echo "Processing file: ${md}"
+              # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
+              if grep -qi 'beamer' "${md}"; then
+                  echo "Detected Beamer presentation in ${md}. Converting using Beamer template."
+                  pandoc "${md}" -t beamer -o "${md%.*}.pdf"
               else
-                pandoc "$file" -o "$output" \
-                  --template=eisvogel \
-                  --listings \
-                  -V geometry:margin=1.5cm \
-                  --pdf-engine=xelatex
+                  echo "Converting ${md} as a standard markdown document."
+                  pandoc "${md}" -o "${md%.*}.pdf"
               fi
-            fi
           done
+      
+      # - name: Convert to PDF
+      #   run: |
+      #     for file in $(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$'); do
+      #       if [[ -f "$file" ]]; then
+      #         echo "Processing $file..."
+      #         output="${file%.md}.pdf"
+
+      #         # Check if file contains presentation markers
+      #         if grep -q '^theme:' "$file" || grep -q '^class: beamer' "$file"; then
+      #           pandoc "$file" -o "$output" \
+      #             -t beamer \
+      #             -V theme:metropolis \
+      #             --pdf-engine=xelatex
+              
+      #         else
+      #           pandoc "$file" -o "$output" \
+      #             --template=eisvogel \
+      #             --listings \
+      #             -V geometry:margin=1.5cm \
+      #             --pdf-engine=xelatex
+      #         fi
+      #       fi
+      #     done
 
       - name: Upload PDF artifacts
         uses: actions/upload-artifact@v4
