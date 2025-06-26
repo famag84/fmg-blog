@@ -33,7 +33,8 @@ jobs:
       - name: Install missing LaTeX packages (if needed)
         run: |
           tlmgr update --self
-          tlmgr install beamer navigation
+          tlmgr install beamer
+          # tlmgr navigation
           
       - name: Convert to PDF
         run: |
