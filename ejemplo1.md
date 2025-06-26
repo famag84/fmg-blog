@@ -1,23 +1,3 @@
----
-title: "Desarrollo de LLM Autohosteados y Endpoints Privados para RAG"
-author: "Facundo Gilles"
-date: 2025-06-25
-theme: Amurmaple
-output:
-  beamer_presentation:
-    slide_level: 2
-    incremental: true
-    keep_tex: true
-    sidebar: true
-header-includes:
-  - \usepackage{amsmath}
-  - \usepackage{graphicx}
-  - \usepackage{listings}
-  - \usepackage{hyperref}
-  - \useoutertheme{miniframes}
-  - \setbeamertemplate{navigation symbols}{}
-  - \colorlet{ochre}{black!30!yellow!70!}
----
 
 # Fase 1: Infraestructura de Ejecución
 
