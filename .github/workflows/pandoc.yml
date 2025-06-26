@@ -37,7 +37,7 @@ jobs:
           
       - name: Convert to PDF
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          for file in ${git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.md$'); do
             if [[ -f "$file" ]]; then
               echo "Processing $file..."
               output="${file%.md}.pdf"
