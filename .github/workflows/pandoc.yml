@@ -12,10 +12,10 @@ jobs:
       image: pandoc/latex:latest  # Official Pandoc+LaTeX image
       
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required to detect changed files
+        # with:
+        #   fetch-depth: 0  # Required to detect changed files
       
       # - name: Setup Pandoc and LaTeX
       #   run: |
