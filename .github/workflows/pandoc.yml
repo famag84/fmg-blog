@@ -60,14 +60,14 @@ jobs:
       - name: Process files in container
         run: |
           for file in ${{ steps.filter-md.outputs.changed_md_files }}; do
-              echo "Processing file: ${md}"
+              echo "Processing file: ${file}"
               # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
-              if grep -qi 'beamer' "${md}"; then
-                  echo "Detected Beamer presentation in ${md}. Converting using Beamer template."
-                  pandoc "${md}" -t beamer -o "${md%.*}.pdf"
+              if grep -qi 'beamer' "${file}"; then
+                  echo "Detected Beamer presentation in ${file}. Converting using Beamer template."
+                  pandoc "${file}" -t beamer -o "${file%.*}.pdf"
               else
-                  echo "Converting ${md} as a standard markdown document."
-                  pandoc "${md}" -o "${md%.*}.pdf"
+                  echo "Converting ${file} as a standard markdown document."
+                  pandoc "${file}" -o "${file%.*}.pdf"
               fi
           done
 
