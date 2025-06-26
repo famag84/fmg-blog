@@ -1,9 +1,10 @@
 # Título Principal
-### Jose Perez
+### *Author: Facundo M. Gilles*
 #### Jose Perez
-Contenido de la diapositiva
 
-*Author: Facundo M. Gilles*
+Contenido de la diapositiva
+$S = k log(\omega)$
+
 
 ---
 
