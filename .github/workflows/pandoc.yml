@@ -15,8 +15,8 @@ jobs:
       # - name: Install Git
       #   run: apt-get update && apt-get install -y git
 
-      # - name: Checkout repository
-      #   uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0  # Required to detect changed files
       
