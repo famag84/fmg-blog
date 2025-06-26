@@ -8,8 +8,8 @@ jobs:
   convert:
     runs-on: ubuntu-latest
     # Uses GitHub's native runner with Git preinstalled
-    # container:
-    #   image: pandoc/latex:latest  # Official Pandoc+LaTeX image
+    container:
+      image: pandoc/latex:latest  # Official Pandoc+LaTeX image
       
     steps:
       - name: Checkout repo
@@ -17,11 +17,11 @@ jobs:
         with:
           fetch-depth: 0  # Required to detect changed files
       
-      - name: Setup Pandoc and LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc texlive-full
-          sudo tlmgr install eisvogel beamer-metropolis
+      # - name: Setup Pandoc and LaTeX
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y pandoc texlive-full
+      #     sudo tlmgr install eisvogel beamer-metropolis
           
       # - name: Find modified Markdown files
       #   id: changed-files
@@ -32,8 +32,8 @@ jobs:
           
       - name: Install missing LaTeX packages (if needed)
         run: |
-          tlmgr update --self
-          tlmgr install beamer navigation
+          sudo tlmgr update --self
+          sudo tlmgr install beamer navigation
           
       - name: Convert to PDF
         run: |
