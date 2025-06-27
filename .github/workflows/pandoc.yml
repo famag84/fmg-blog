@@ -43,11 +43,26 @@ jobs:
       #     tlmgr update --self
       #     tlmgr install beamer
       #     # tlmgr navigation
-      - name: Get changed files via GitHub API
+
+      # - name: Get changed files via GitHub API
+      #   id: changed-files
+      #   uses: jitterbit/get-changed-files@v1
+      #   with:
+      #     format: space-delimited  # Lista de archivos separados por espacios
+
+      - name: Get changed Markdown files
         id: changed-files
-        uses: jitterbit/get-changed-files@v1
-        with:
-          format: space-delimited  # Lista de archivos separados por espacios
+        run: |
+          # Obtiene archivos .md modificados en el último commit (push)
+          files=$(git diff --name-only HEAD^ HEAD | grep '\.md$' || true)
+          
+          # Formato moderno para outputs (GITHUB_OUTPUT)
+          delimiter="EOF_$(openssl rand -hex 6)"
+          echo "changed_md_files<<${delimiter}" >> $GITHUB_OUTPUT
+          echo "$files" >> $GITHUB_OUTPUT
+          echo "${delimiter}" >> $GITHUB_OUTPUT
+
+          echo "📄 Archivos modificados: $files"
 
       - name: Filter Markdown files
         id: filter-md
