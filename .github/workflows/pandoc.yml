@@ -22,7 +22,7 @@ jobs:
             echo "❌ Unsupported OS: Cannot install Git"
             exit 1
           fi
-          
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -79,7 +79,7 @@ jobs:
         run: |
           PREV_SHA=$(git log --pretty=format:%H -n 2 | tail -1)
           mkdir -p pdfs
-          for file in $(git diff --name-only $PREV_SHA HEAD | grep '\.md$' || true); do
+          for file in $(git diff --no-index --name-only $PREV_SHA HEAD | grep '\.md$' || true); do
           # for file in ${{ steps.changed-files.outputs.all }}; do
               
             if [[ "$file" != *.md ]]; then
@@ -147,10 +147,11 @@ jobs:
       #         fi
       #       fi
       #     done
+      # # cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
 
       - name: Commit and push PDFs
         run: |
-          # cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
+          
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add docs/*.pdf
