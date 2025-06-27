@@ -9,17 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     # Uses GitHub's native runner with Git preinstalled
     container:
-      image: pandoc/latex:latest-ubuntu  # Official Pandoc+LaTeX image with ubuntu! (default is with alpine)
+      image: pandoc/latex:latest  # Official Pandoc+LaTeX image with ubuntu! (default is with alpine)
       
     steps:
-      - name: Install Git
-        run: apt-get update && apt-get install -y git
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Required to detect changed files
       
+      - name: Install Git
+        # run: apt-get update && apt-get install -y git
+        run: |
+          apk update
+          apk add --no-cache git
       # - name: Install Git
       #   run: |
       #     sudo apt-get update 
