@@ -3,7 +3,10 @@ on:
   push:
     paths:
       - '**.md'  # Trigger only when .md files change
-      
+
+permissions:
+  contents: write
+
 jobs:
   convert:
     runs-on: ubuntu-latest
