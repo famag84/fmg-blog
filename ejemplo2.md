@@ -1,7 +1,7 @@
 ---
 title: "Desarrollo de LLM Autohosteados y Endpoints Privados para RAG"
 author: "Facundo Gilles"
-date: 2025-06-25
+date: 2025-06-26
 theme: Amurmaple
 output:
   beamer_presentation:
