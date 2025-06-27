@@ -28,7 +28,9 @@ jobs:
         with:
           fetch-depth: 0  # Required to detect changed files
           #cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
-
+          
+      - name: Fix Git ownership
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       # - name: Find modified Markdown files
       #   id: changed-files
       #   uses: tj-actions/changed-files@v42
@@ -151,7 +153,6 @@ jobs:
 
       - name: Commit and push PDFs
         run: |
-          
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git add docs/*.pdf
