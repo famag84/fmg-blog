@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     # Uses GitHub's native runner with Git preinstalled
     container:
-      image: pandoc/latex:latest-ubuntu  # Official Pandoc+LaTeX image
+      image: pandoc/latex:latest-ubuntu  # Official Pandoc+LaTeX image with ubuntu! (default is with alpine)
       
     steps:
       - name: Install Git
