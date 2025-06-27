@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0  # Required to detect changed files
           #cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
-          
+
       - name: Fix Git ownership
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       # - name: Find modified Markdown files
@@ -81,7 +81,7 @@ jobs:
         run: |
           PREV_SHA=$(git log --pretty=format:%H -n 2 | tail -1)
           mkdir -p pdfs
-          for file in $(git diff --no-index --name-only $PREV_SHA HEAD | grep '\.md$' || true); do
+          for file in $(git diff --name-only $PREV_SHA HEAD | grep '\.md$' || true); do
           # for file in ${{ steps.changed-files.outputs.all }}; do
               
             if [[ "$file" != *.md ]]; then
