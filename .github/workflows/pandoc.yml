@@ -50,40 +50,51 @@ jobs:
       #   with:
       #     format: space-delimited  # Lista de archivos separados por espacios
 
-      - name: Get changed Markdown files
+      - name: Get changed files
         id: changed-files
-        run: |
-          # Obtiene archivos .md modificados en el último commit (push)
-          files=$(git diff --name-only HEAD^ HEAD | grep '\.md$' || true)
+        uses: tj-actions/changed-files@v44  # Versión estable más reciente
+        with:
+          separator: ' '  # Formato de salida
+
+      # - name: Get changed Markdown files
+      #   id: changed-files
+      #   run: |
+      #     # Obtiene archivos .md modificados en el último commit (push)
+      #     files=$(git diff --name-only HEAD^ HEAD | grep '\.md$' || true)
           
-          # Formato moderno para outputs (GITHUB_OUTPUT)
-          delimiter="EOF_$(openssl rand -hex 6)"
-          echo "changed_md_files<<${delimiter}" >> $GITHUB_OUTPUT
-          echo "$files" >> $GITHUB_OUTPUT
-          echo "${delimiter}" >> $GITHUB_OUTPUT
+      #     # Formato moderno para outputs (GITHUB_OUTPUT)
+      #     delimiter="EOF_$(openssl rand -hex 6)"
+      #     echo "changed_md_files<<${delimiter}" >> $GITHUB_OUTPUT
+      #     echo "$files" >> $GITHUB_OUTPUT
+      #     echo "${delimiter}" >> $GITHUB_OUTPUT
+      #     echo "📄 Archivos modificados: $files"
 
-          echo "📄 Archivos modificados: $files"
-
-      - name: Filter Markdown files
-        id: filter-md
-        run: |
-          # Filtra solo archivos .md
-          md_files=$(echo "${{ steps.changed-files.outputs.all }}" | tr ' ' '\n' | grep '\.md$' || true)
-          echo "changed_md_files=$md_files" >> $GITHUB_OUTPUT
-          echo "Markdown files changed: $md_files"
+      # - name: Filter Markdown files
+      #   id: filter-md
+      #   run: |
+      #     # Filtra solo archivos .md
+      #     md_files=$(echo "${{ steps.changed-files.outputs.all }}" | tr ' ' '\n' | grep '\.md$' || true)
+      #     echo "changed_md_files=$md_files" >> $GITHUB_OUTPUT
+      #     echo "Markdown files changed: $md_files"
 
       - name: Process files in container
         run: |
-          for file in ${{ steps.filter-md.outputs.changed_md_files }}; do
-              echo "Processing file: ${file}"
-              # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
-              if grep -qi 'beamer' "${file}"; then
-                  echo "Detected Beamer presentation in ${file}. Converting using Beamer template."
-                  pandoc "${file}" -t beamer -o "pdfs/${file%.*}.pdf"
-              else
-                  echo "Converting ${file} as a standard markdown document."
-                  pandoc "${file}" -o "pdfs/${file%.*}.pdf"
-              fi
+          for file in ${{ steps.changed-files.outputs.all }}; do
+              
+            if [[ "$file" != *.md ]]; then
+              echo "❌ Ignorando (no es .md): $file"
+              continue  # Salta a la siguiente iteración
+            fi
+
+            echo "Processing file: ${file}"
+            # Check if the markdown file indicates it's a Beamer presentation by searching for a 'Beamer' keyword in metadata
+            if grep -qi 'beamer' "${file}"; then
+                echo "Detected Beamer presentation in ${file}. Converting using Beamer template."
+                pandoc "${file}" -t beamer -o "pdfs/${file%.*}.pdf"
+            else
+                echo "Converting ${file} as a standard markdown document."
+                pandoc "${file}" -o "pdfs/${file%.*}.pdf"
+            fi
           done
 
       # - name: Get list of modified markdown files
