@@ -55,7 +55,7 @@ jobs:
           git add pdfs/*.pdf 2>/dev/null || true
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-generate PDFs [skip ci]"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push
+          git push --set-upstream origin pdf-artifacts
 
       # - name: Upload PDF artifacts
       #   uses: actions/upload-artifact@v4
