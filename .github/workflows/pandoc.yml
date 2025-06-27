@@ -45,7 +45,7 @@ jobs:
       #     # tlmgr navigation
       - name: Get changed files via GitHub API
         id: changed-files
-        uses: jitterbit/get-changed-files@v2
+        uses: jitterbit/get-changed-files@v1
         with:
           format: space-delimited  # Lista de archivos separados por espacios
 
