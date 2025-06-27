@@ -12,11 +12,6 @@ jobs:
       image: pandoc/latex:latest  # Official Pandoc+LaTeX image with ubuntu! (default is with alpine)
       
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Required to detect changed files
-      
       - name: Install Git
         run: |
           if [ -f /etc/alpine-release ]; then
@@ -27,7 +22,12 @@ jobs:
             echo "❌ Unsupported OS: Cannot install Git"
             exit 1
           fi
-          cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
+          
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Required to detect changed files
+          #cd "$GITHUB_WORKSPACE"  # ← Critical: Move into repo directory
 
       # - name: Find modified Markdown files
       #   id: changed-files
@@ -78,6 +78,7 @@ jobs:
       - name: Process files in container
         run: |
           PREV_SHA=$(git log --pretty=format:%H -n 2 | tail -1)
+          mkdir -p pdfs
           for file in $(git diff --name-only $PREV_SHA HEAD | grep '\.md$' || true); do
           # for file in ${{ steps.changed-files.outputs.all }}; do
               
