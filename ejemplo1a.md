@@ -2,7 +2,7 @@
 
 ### *Author: Facundo M. Gilles*
 
-015
+016
 1. Contenido de la diapositiva
 $$
 S = k log(\omega)
