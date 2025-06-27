@@ -18,20 +18,15 @@ jobs:
           fetch-depth: 0  # Required to detect changed files
       
       - name: Install Git
-        # run: apt-get update && apt-get install -y git
         run: |
-          apk update
-          apk add --no-cache git
-      # - name: Install Git
-      #   run: |
-      #     sudo apt-get update 
-      #     sudo apt-get install -y git
-
-      # - name: Setup Pandoc and LaTeX
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install -y pandoc texlive-full
-      #     sudo tlmgr install eisvogel beamer-metropolis
+          if [ -f /etc/alpine-release ]; then
+            apk update && apk add --no-cache git
+          elif [ -f /etc/debian_version ]; then
+            apt-get update && apt-get install -y git
+          else
+            echo "❌ Unsupported OS: Cannot install Git"
+            exit 1
+          fi
           
       # - name: Find modified Markdown files
       #   id: changed-files
@@ -52,11 +47,11 @@ jobs:
       #   with:
       #     format: space-delimited  # Lista de archivos separados por espacios
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v44  # Versión estable más reciente
-        with:
-          separator: ' '  # Formato de salida
+      # - name: Get changed files
+      #   id: changed-files
+      #   uses: tj-actions/changed-files@v44  # Versión estable más reciente
+      #   with:
+      #     separator: ' '  # Formato de salida
 
       # - name: Get changed Markdown files
       #   id: changed-files
@@ -81,7 +76,8 @@ jobs:
 
       - name: Process files in container
         run: |
-          for file in ${{ steps.changed-files.outputs.all }}; do
+          for file in $(git diff --name-only HEAD^ HEAD | grep '\.md$' || true); do
+          # for file in ${{ steps.changed-files.outputs.all }}; do
               
             if [[ "$file" != *.md ]]; then
               echo "❌ Ignorando (no es .md): $file"
