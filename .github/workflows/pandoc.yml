@@ -47,6 +47,7 @@ jobs:
             else
                 echo "Converting ${file} as a standard markdown document."
                 pandoc "${file}" -o "pdfs/${file%.*}.pdf"
+                ls pdfs
             fi
           done
 
