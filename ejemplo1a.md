@@ -1,21 +1,17 @@
-# Título Principal
+## Título Principal
 
-### *Author: Facundo M. Gilles*
-
-026
-1. Contenido de la diapositiva
-$$
-S = k log(\omega)
-$$
+**Author: Facundo M. Gilles**
+2025-07-02
 
 ---
 
 ## Agrego una Introducción
-
+### Primera Diapo
 Esta intro no puede tener dirección vertical?
-
+^Notas: Acá no olvidar leer estas notas
 ---
 
+^Notas: Estas notas son de la diapo 2
 ## Segunda Diapositiva
 
 - Lista con items
@@ -50,7 +46,8 @@ $E=mc^2$
 
 --
 
-### Sub-diapo (vertical 1)
+^Notas: Notas de la diapo 3.2 
+### Sub-diapo (vertical 2)
 
 
 $$S=k_{b}log(\omega)$$
